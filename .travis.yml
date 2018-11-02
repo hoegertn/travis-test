@@ -8,17 +8,21 @@ branches:
   only:
     - master
 
+install:
+  - export AWS_ACCOUNT=123456789012
+
+stages:
+  - test
+  - name: deploy
+    if: branch = master && type = push
+
 jobs:
   include:
-    - stage: install
-      script:
-        - export AWS_ACCOUNT=123456789012
     - stage: test
       script:
         - env
         - echo ${AWS_ACCOUNT}
         - echo ${TRAVIS_BUILD_ID}
     - stage: deploy
-      if: branch = master && type = push
       script:
         - echo Deploying to ${AWS_ACCOUNT}
