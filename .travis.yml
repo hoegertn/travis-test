@@ -1,0 +1,17 @@
+sudo: required
+language: nodejs
+
+services:
+  - docker
+
+branches:
+  only:
+    - master
+
+install:
+  - export AWS_ACCOUNT=123456789012
+
+script:
+  - env
+  - echo ${AWS_ACCOUNT}
+  - echo ${TRAVIS_BUILD_ID}
